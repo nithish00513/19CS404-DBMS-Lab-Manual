@@ -5,208 +5,158 @@ To study and implement DDL commands and different types of constraints.
 
 ## THEORY
 
-### 1. CREATE
-Used to create a new relation (table).
 
-**Syntax:**
-```sql
-CREATE TABLE (
-  field_1 data_type(size),
-  field_2 data_type(size),
-  ...
-);
-```
-### 2. ALTER
-Used to add, modify, drop, or rename fields in an existing relation.
-(a) ADD
-```sql
-ALTER TABLE std ADD (Address CHAR(10));
-```
-(b) MODIFY
-```sql
-ALTER TABLE relation_name MODIFY (field_1 new_data_type(size));
-```
-(c) DROP
-```sql
-ALTER TABLE relation_name DROP COLUMN field_name;
-```
-(d) RENAME
-```sql
-ALTER TABLE relation_name RENAME COLUMN old_field_name TO new_field_name;
-```
-### 3. DROP TABLE
-Used to permanently delete the structure and data of a table.
-```sql
-DROP TABLE relation_name;
-```
-### 4. RENAME
-Used to rename an existing database object.
-```sql
-RENAME TABLE old_relation_name TO new_relation_name;
-```
-### CONSTRAINTS
-Constraints are used to specify rules for the data in a table. If there is any violation between the constraint and the data action, the action is aborted by the constraint. It can be specified when the table is created (using CREATE TABLE) or after it is created (using ALTER TABLE).
-### 1. NOT NULL
-When a column is defined as NOT NULL, it becomes mandatory to enter a value in that column.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) NOT NULL
-);
-```
-### 2. UNIQUE
-Ensures that values in a column are unique.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) UNIQUE
-);
-```
-### 3. CHECK
-Specifies a condition that each row must satisfy.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) CHECK (logical_expression)
-);
-```
-### 4. PRIMARY KEY
-Used to uniquely identify each record in a table.
-Properties:
-Must contain unique values.
-Cannot be null.
-Should contain minimal fields.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) PRIMARY KEY
-);
-```
-### 5. FOREIGN KEY
-Used to reference the primary key of another table.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size),
-  FOREIGN KEY (column_name) REFERENCES other_table(column)
-);
-```
-### 6. DEFAULT
-Used to insert a default value into a column if no value is specified.
+**Question 1**
+--
+-- ![image](https://github.com/user-attachments/assets/88ae6e46-bad9-4e73-afec-c705799b49c7)
 
-Syntax:
+
 ```sql
-CREATE TABLE Table_Name (
-  col_name1 data_type,
-  col_name2 data_type,
-  col_name3 data_type DEFAULT 'default_value'
-);
+-- update sales
+set sell_price=sell_price*1.05
+where product_id=15 and sale_date='2023-01-31'
 ```
+
 **Output:**
 
-![image](https://github.com/user-attachments/assets/41a9b76e-11d8-4e02-932e-4a80e1a056cc)
+![image](https://github.com/user-attachments/assets/ff57282c-e288-42d7-ba28-03613565f317)
 
+
+**Question 2**
+---
+-- ![image](https://github.com/user-attachments/assets/be44efc6-7c46-4397-96f4-7622de31a069)
+
+
+```sql
+-- update employees
+set email='not available',commission_pct=0.55
+where department_id=110
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/5eccdc01-4db3-4dcc-ab8b-b0ce950756f2)
+
+
+**Question 3**
+---
+-- ![image](https://github.com/user-attachments/assets/8228f35b-abe3-4c92-9f86-465ad42bfcab)
+
+
+```sql
+-- update products
+set sell_price=sell_price+(sell_price*10/100)
+where supplier_id=6
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/4e2e1c05-e010-4ebf-83b6-48c2b1ed36c5)
 
 **Question 4**
 ---
--- ![image](https://github.com/user-attachments/assets/ed864134-23f6-418d-b337-243672210a2a)
-
+-- ![image](https://github.com/user-attachments/assets/d90e7cba-0949-4073-a687-f2ca89848636)
 
 
 ```sql
-create table Attendance(
-AttendanceID INTEGER primary key,
-EmployeeID INTEGER,
-AttendanceDate DATE,
-Status TEXT,
-check(Status in ('Present','Absent','Leave')),
-foreign key(EmployeeID) references Employees(EmployeeID));
+-- delete from customer
+where grade=2 and cust_name like "M%" and payment_amt<=3000
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/c11c1746-c8fe-486a-8534-363d0de39d38)
+![image](https://github.com/user-attachments/assets/29cd4741-3587-400b-bf7d-a78dfc6d1ff1)
 
 
 **Question 5**
 ---
--- ![image](https://github.com/user-attachments/assets/4aa9e9db-66f1-4c8c-a5eb-00a95cab7e38)
+-- ![image](https://github.com/user-attachments/assets/687e156d-8257-4ab4-ab74-f0493a6324df)
 
 
 ```sql
--- insert into Products(ProductID,Name,Category,Price,Stock)
-values(101,'Laptop','Electronics',1500,50);
+-- select lower(ename) as 'EmpName' from emp
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/48253236-69d4-42ef-b69e-8a1433ce0941)
+![image](https://github.com/user-attachments/assets/4fb63dff-03d0-4b7a-a1fd-5ee7024c05a4)
 
 
 **Question 6**
 ---
--- ![image](https://github.com/user-attachments/assets/d18b1840-dac9-4a72-9609-513af975f2b3)
+-- ![image](https://github.com/user-attachments/assets/9a44a152-3bcf-4938-a07b-32661011dd08)
 
 
 ```sql
--- alter table Student_details
-add column ParentsNumber number;
-alter table Student_details
-add column Adhar_Number number;
+-- select ename,hiredate,julianday('2024-12-31')-julianday(hiredate) as days_worked
+from emp
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/3a7d27ca-e014-40a1-853e-4de06457b1b1)
-
+![image](https://github.com/user-attachments/assets/26e16e5f-e48a-4f36-9cb1-19d992606146)
 
 **Question 7**
 ---
--- ![image](https://github.com/user-attachments/assets/04a4d3cc-c44a-4129-8687-24e203d59dcb)
+-- ![image](https://github.com/user-attachments/assets/2eea4f52-ff49-4b30-b59f-87e5a0befc49)
 
 
 ```sql
--- create table Invoices(
-InvoiceID int primary key,
-InvoiceDate date,
-Amount real,
-DueDate date,
-OrderID int,
-check (amount>0),
-check (DueDate>InvoiceDate),
-foreign key (OrderID)references Orders(OrderID));
+-- select product_id,original_price,discount_percentage,tax_rate,
+(original_price*(1-discount_percentage))*(1+tax_rate) as final_price
+from products
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/0ea83df4-6b5e-4a85-a384-24bb8541f877)
+![image](https://github.com/user-attachments/assets/9fd022b8-8062-442c-b221-7ab244995187)
 
 
 **Question 8**
 ---
--- ![image](https://github.com/user-attachments/assets/56f83ce6-c560-410d-bce1-285ce94a4479)
+-- ![image](https://github.com/user-attachments/assets/c81dabd7-ee1d-4ba4-8d08-8a0fdc661d60)
 
 
 ```sql
--- create table Customers(
-CustomerID INTEGER,
-Name TEXT,
-Email TEXT,
-JoinDate DATETIME);
+-- select customer_id,cust_name,city,grade,salesman_id from customer
+where grade>100
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/6dba59b3-bca1-4f06-83ae-91b7895823f1)
+![image](https://github.com/user-attachments/assets/ff63df33-ab26-4099-8d2d-1ef5feebef5b)
+
 
 **Question 9**
 ---
--- ![image](https://github.com/user-attachments/assets/6b02a17f-22d7-4ee7-a149-ba6654800a58)
+-- ![image](https://github.com/user-attachments/assets/237d401b-ad05-4db4-b293-ee5a9f4cc50b)
+
 
 ```sql
--- insert into Student_details select * from Archived_students;
+-- delete from doctors
+where doctor_id=1
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/8475d606-103c-4772-b897-a3d1ba82756f)
+![image](https://github.com/user-attachments/assets/2a6a0cfa-8267-4874-87a8-1e0879f4f4d0)
+
+
+**Question 10**
+---
+-- ![image](https://github.com/user-attachments/assets/ce8a87f9-00ff-454b-8575-a7ba5fc36a4c)
+
+
+```sql
+-- delete from customer
+where cust_country='India' and cust_city <> 'Chennai';
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/adbe7734-1d0a-40d3-b90b-eb6ac02c1f72)
+
+
+## RESULT
+Thus, the SQL queries to implement DML commands have been executed successfully.
